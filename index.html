@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        text-align: center;
+    }
+</style>
+<body>
+    <select id="opt">
+        <option value="English">English</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Bengali">Bengali</option>
+      </select>
+
+    <h1>Write Your Text</h1>
+    <input type="text" id="text1">
+<br><br>
+<button id="button" onclick="conveter()">Conveter</button>
+ <button id="button" onclick="check()">Human</button>
+<h1>Responce </h1>
+<p id="responce"></p>
+</body>
+<Script>
+
+    let responce1=document.getElementById("responce");
+function conveter(){ 
+    let text2=document.getElementById("text1").value;
+    let select=document.getElementById("opt").value;
+    console.log(text2);
+fetch(`http://localhost:8080/chat?prompt=converted my text to ${select}. text=${text2}.`).then(responce=>{
+    responce.json().then(data=>{
+        console.log(data);
+        responce1.innerHTML=data.message;
+    })
+})
+}
+
+function check(){
+    let text2=document.getElementById("text1").value;
+    console.log(text2);
+fetch(`http://localhost:8080/chat?prompt=response like like a human of my question. Question=${text2}.`).then(responce=>{
+    responce.json().then(data=>{
+        console.log(data);
+        responce1.innerHTML=data.message;
+    })
+})
+}
+</Script>
+</html>
